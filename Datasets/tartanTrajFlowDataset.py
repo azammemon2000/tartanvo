@@ -4,6 +4,7 @@ from torch.utils.data import Dataset, DataLoader
 from os import listdir
 from .transformation import pos_quats2SEs, pose2motion, SEs2ses
 from .utils import make_intrinsics_layer
+from Datasets.transformation import kitti2tartan
 
 class TrajFolderDataset(Dataset):
     """scene flow synthetic dataset. """
@@ -20,7 +21,9 @@ class TrajFolderDataset(Dataset):
 
         if posefile is not None and posefile!="":
             poselist = np.loadtxt(posefile).astype(np.float32)
-            assert(poselist.shape[1]==7) # position + quaternion
+            # assert(poselist.shape[1]==7) # position + quaternion
+            if poselist.shape[1]==12:
+                poselist = kitti2tartan(poselist).astype(np.float32)
             poses = pos_quats2SEs(poselist)
             self.matrix = pose2motion(poses)
             self.motions     = SEs2ses(self.matrix).astype(np.float32)
