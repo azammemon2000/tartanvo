@@ -1,3 +1,6 @@
+# pip install numpy matplotlib scipy torch opencv-python
+# pip install cupy-cuda12x
+
 from torch.utils.data import DataLoader
 from Datasets.utils import ToTensor, Compose, CropCenter, dataset_intrinsics, DownscaleFlow, plot_traj, visflow
 from Datasets.tartanTrajFlowDataset import TrajFolderDataset
@@ -76,7 +79,8 @@ if __name__ == '__main__':
         flowcount = 0
     while True:
         try:
-            sample = testDataiter.next()
+            # sample = testDataiter.next()
+            sample = next(testDataiter)
         except StopIteration:
             break
 
