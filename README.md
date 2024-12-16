@@ -36,7 +36,7 @@ $ docker build -t tartanvo -f tartanvo_ros.dockerfile .
 
 ### Running without docker
 This repo has the following dependencies:
-* Python 2 / 3
+* Python 3
 * numpy 
 * matplotlib
 * scipy
@@ -46,8 +46,10 @@ This repo has the following dependencies:
 
 You can install the above dependencies manually, or use the following command:
 ```
-$ pip install numpy matplotlib scipy torch==1.4.0 opencv-python==4.2.0.32 cupy==6.7.0
+$ pip install numpy matplotlib scipy torch opencv-python cupy-cuda12x
 ```
+
+if using different version of `cuda`, find relevant pypi install version of `cupy` here: https://pypi.org/project/cupy/
 
 Our code has been tested on Ubuntu 18.04 and 16.04. An nvidia-driver and a Cuda version of 9.2/10.2 are required to run the code. 
 
@@ -110,6 +112,9 @@ $ python vo_trajectory_from_folder.py  --model-name tartanvo_1914.pkl \
                                        --test-dir data/KITTI_10/image_left \
                                        --pose-file data/KITTI_10/pose_left.txt 
 ```
+- This also support pose files of original kitti, it automatically convert original kitti pose to NED version supported by this repository.
+
+
 - Testing on EuRoC
 ```
 
